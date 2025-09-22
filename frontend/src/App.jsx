@@ -1,12 +1,32 @@
 
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import Homepage from './pages/Homepage.jsx'
+import NotFound from './pages/NotFound.jsx'
+import Login from './pages/auth/login.jsx'
+import Register from './pages/auth/Register.jsx'
+import DashboardPage from './pages/DashboardPage.jsx'
+import AnalyticsPage from './pages/AnalyticsPage.jsx'
+import ReportsPage from './pages/ReportsPage.jsx'
+import TransactionsPage from './pages/TransactionsPage.jsx'
 
 function App() {
 
 
   return (
     <>
-      <h1 className="text-7xl font-semibold">Expense Tracker App</h1>
+      <Routes>
+        <Route path='/' element={<Homepage/>}/>
+        <Route path='/register' element={<Register/>}/>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='*' element={<NotFound/>}/>
+        <Route path='/dashboard' element={<DashboardPage/>}/>
+        <Route path='/transactions' element={<TransactionsPage/>}/>
+        <Route path='/reports' element={<ReportsPage/>}/>
+        <Route path='/analytics' element={<AnalyticsPage/>}/>
+
+
+        </Routes>
     </>
   )
 }
