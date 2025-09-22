@@ -9,7 +9,8 @@ import DashboardPage from './pages/DashboardPage.jsx'
 import AnalyticsPage from './pages/AnalyticsPage.jsx'
 import ReportsPage from './pages/ReportsPage.jsx'
 import TransactionsPage from './pages/TransactionsPage.jsx'
-
+import ProtectedRoute from './components/ProtectedRoutes.jsx'
+import AuthRoute from './components/AuthRoute.jsx'
 function App() {
 
 
@@ -17,10 +18,10 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<Homepage/>}/>
-        <Route path='/register' element={<Register/>}/>
-        <Route path='/login' element={<Login/>}/>
+        <Route path='/register' element={<AuthRoute><Register/></AuthRoute>}/>
+        <Route path='/login' element={<AuthRoute><Login/></AuthRoute>}/>
         <Route path='*' element={<NotFound/>}/>
-        <Route path='/dashboard' element={<DashboardPage/>}/>
+        <Route path='/dashboard' element={<ProtectedRoute><DashboardPage/></ProtectedRoute>}/>
         <Route path='/transactions' element={<TransactionsPage/>}/>
         <Route path='/reports' element={<ReportsPage/>}/>
         <Route path='/analytics' element={<AnalyticsPage/>}/>

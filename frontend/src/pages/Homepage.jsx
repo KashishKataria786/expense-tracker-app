@@ -7,7 +7,7 @@ const HomePage = () => {
 
 <Layout>
 
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen ">
     
 
       {/* Hero Section */}
@@ -29,7 +29,7 @@ const HomePage = () => {
 
         <div className="md:w-1/2 flex justify-center">
           <img
-            src="https://illustrations.popsy.co/white/chart-graph.svg"
+            src="https://static.vecteezy.com/system/resources/previews/014/849/631/non_2x/finance-accounting-illustration-concept-on-white-background-vector.jpg"
             alt="Finance Illustration"
             className="w-80 md:w-[28rem]"
           />
