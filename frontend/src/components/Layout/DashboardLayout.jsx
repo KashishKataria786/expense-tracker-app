@@ -1,5 +1,3 @@
-"use client"
-
 import React, { useState } from "react";
 import {
   FaUtensils,
@@ -18,7 +16,7 @@ const SidebarLink = ({ icon, label, expand, path }) => {
 
   return (
     <div
-      onClick={() => router('/')}
+      onClick={() => router(`${path}`)}
       className={`${
         path === pathname ? "bg-gray-800 text-white" : ""
       } flex items-center ${
@@ -80,7 +78,7 @@ const Sidebar = () => {
           expand={expand}
           icon={<FaClipboardList />}
           label="Reports"
-          path="/restaurant/orders"
+          path="/reports"
         />
       </nav>
       </div>
