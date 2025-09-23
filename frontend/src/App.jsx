@@ -25,8 +25,6 @@ function App() {
         <Route path='/transactions' element={<ProtectedRoute><TransactionsPage/></ProtectedRoute>}/>
         <Route path='/reports' element={<ProtectedRoute><ReportsPage/></ProtectedRoute>}/>
         <Route path='/analytics' element={<ProtectedRoute><AnalyticsPage/></ProtectedRoute>}/>
-
-    
         </Routes>
     </>
   )

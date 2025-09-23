@@ -28,7 +28,7 @@ const AddTransaction = ({ reload }) => {
     try {
       setLoading(true);
       const res = await fetch(
-        "https://expense-tracker-app-one-gules.vercel.app/api/transaction/add",
+        `${import.meta.env.VITE_BASE_URL}/api/transaction/add`,
         {
           method: "POST",
           headers: {
