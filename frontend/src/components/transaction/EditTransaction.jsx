@@ -21,7 +21,7 @@ const EditTransaction = ({ id, reload }) => {
     try {
       setLoading(true);
       const res = await fetch(
-        `https://expense-tracker-app-one-gules.vercel.app/api/transaction/edit/${id}`,
+        `${import.meta.env.VITE_BASE_URL}/api/transaction/edit/${id}`,
         {
           method: "PATCH", 
           headers: {
@@ -55,7 +55,7 @@ const EditTransaction = ({ id, reload }) => {
     try {
       setLoading(true);
       const res = await fetch(
-        `https://expense-tracker-app-one-gules.vercel.app/api/transaction/${id}`,
+        `${import.meta.env.VITE_BASE_URL}/api/transaction/${id}`,
         {
           headers: {
             "Content-Type": "application/json",

@@ -12,7 +12,7 @@ const ReportsPage = () => {
       if((!token))return;
       try {
         const res = await fetch(
-          `https://expense-tracker-app-one-gules.vercel.app/api/transaction`,
+          `${import.meta.env.VITE_BASE_URL}/api/transaction`,
           {
             headers: {
               "Content-Type": "application/json",

@@ -19,7 +19,7 @@ const TransactionList = () => {
     if((!token))return;
     try {
       const res = await fetch(
-        `https://expense-tracker-app-one-gules.vercel.app/api/transaction`,
+        `${import.meta.env.VITE_BASE_URL}/api/transaction`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -42,7 +42,7 @@ const TransactionList = () => {
   const onDelete = async (id) => {
   try {
     const res = await fetch(
-      `https://expense-tracker-app-one-gules.vercel.app/api/transaction/delete/${id}`,
+      `${import.meta.env.VITE_BASE_URL}/api/transaction/delete/${id}`,
       {
         method: "DELETE",
         headers: {

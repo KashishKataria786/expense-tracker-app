@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { Menu, X, User, LogOut, Bell } from "lucide-react";  
-// you can swap in icons you prefer
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  const token= localStorage.getItem('token') || null; 
+  const router = useNavigate();
+    const handleLogout = () => {
+    localStorage.removeItem("token");
+    router("/login");
+  };
   const toggleMobileMenu = () => setMobileMenuOpen(prev => !prev);
 
   return (
@@ -14,11 +19,9 @@ const Header = () => {
           
           {/* Left: Logo */}
           <div className="flex-shrink-0 flex items-center">
-            {/* Could be an img or text logo */}
-            <span className="text-2xl font-bold text-blue-800">ExpenseTracker</span>
+            <span className="text-2xl font-bold text-red-800">ExpenseTracker</span>
           </div>
 
-          {/* Middle: Nav links (desktop) */}
           <nav className="hidden md:flex space-x-8">
             <a href="/" className="text-gray-700 hover:text-blue-600 transition">
               Home
@@ -41,14 +44,15 @@ const Header = () => {
               <Bell size={20} />
             </button>
             
+          
+             {!token&& <button className="hover:text-blue-500" onClick={()=>router('/login')}>Login/Register!</button>}
+          
             {/* User menu */}
-            <div className="flex items-center space-x-2">
-              <User size={20} className="text-gray-600" />
-              <span className="hidden sm:block text-gray-700">John Doe</span>
-              <button className="p-1 rounded-md text-gray-600 hover:text-gray-800 transition">
-                <LogOut size={20} />
+            
+              {token&&<button  onClick={handleLogout} className="p-2 flex text-white items-center gap-2 bg-red-500 rounded-md hover:text-red-600 hover:bg-white border border-red-600 transition">
+                <LogOut size={20} /><span>Logout</span>
               </button>
-            </div>
+            }
 
             {/* Mobile menu toggle */}
             <button
