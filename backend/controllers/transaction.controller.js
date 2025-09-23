@@ -44,9 +44,23 @@ export const addTransaction = async (req, res) => {
 };
 export const getAllTransactions = async (req, res) => {
   const user_Id = req.user.id;
+  const {search , type, category}=req.query;
   try {
+    const filters ={userId:user_Id}
+    if (type) {
+      filters.type = type;
+    }else if (category){
+      filters.type=type
+    }
+
+    if(search){
+      filters.OR = [
+        {title:{contains:search , mode: "insensitive"},}
+
+      ]
+    }
     const transactions = await prisma.transaction.findMany({
-      where: { userId: user_Id },
+      where: filters,
       orderBy: { createdAt: "desc" },
     });
 
