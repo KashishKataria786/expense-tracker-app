@@ -1,17 +1,57 @@
-import React , {useContext}from 'react'
-import DashboardLayout from '../components/Layout/DashboardLayout'
-import {AuthContext} from '../context/AuthContext.jsx'
+import { useState, useEffect } from "react";
+import DashboardLayout from "../components/Layout/DashboardLayout";
+import ExpenseVsIncome from "../components/Analytics/ExpenseVsIncome.jsx";
+import DashboardCards from "../components/dashboard/DashboardCards.jsx";
+import CategoryWiseExpenseBreakDown from "../components/Analytics/CategoryWiseExpenseBreakDown.jsx";
 
 const DashboardPage = () => {
+  const token = localStorage.getItem("token");
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-    const {user, loggedIn}= useContext(AuthContext);
+  const fetchTransactions = async () => {
+    setLoading(true);
+    if (!token) return;
+    try {
+      const res = await fetch(
+        `https://expense-tracker-app-one-gules.vercel.app/api/transaction`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+        }
+      );
+
+      if (!res.ok) throw new Error("Failed to fetch transactions");
+
+      const data = await res.json();
+      setTransactions(data.transactions || []);
+    } catch (error) {
+      console.error("Error fetching transactions:", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
 
   return (
     <DashboardLayout>
-      Dashbaord
-      {JSON.stringify(user,null,2)}
+      <h1 className="text-3xl mb-5 font-semibold ">Dashboard</h1>
+      <DashboardCards data={transactions} />
+      <div className="grid grid-cols-5 my-5 gap-2 ">
+        <div className="col-span-3">
+          <CategoryWiseExpenseBreakDown data={transactions} loading={loading} />
+        </div>
+        <div className="col-span-2">
+          <ExpenseVsIncome data={transactions} loading={loading} />
+        </div>
+      </div>
     </DashboardLayout>
-  )
-}
+  );
+};
 
-export default DashboardPage
+export default DashboardPage;
