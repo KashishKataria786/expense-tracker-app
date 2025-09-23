@@ -4,7 +4,7 @@ import DashboardLayout from '../components/Layout/DashboardLayout.jsx'
 const ReportsPage = () => {
   return (
     <DashboardLayout>
-      Reports Page
+      <h1 className='text-3xl mb-5 font-semibold '>Reports</h1>
     </DashboardLayout>
   )
 }
