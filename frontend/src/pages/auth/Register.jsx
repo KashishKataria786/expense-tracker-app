@@ -3,6 +3,7 @@ import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Spinner from '../../components/Spinner.jsx'
+import { useNavigate } from "react-router-dom";
 const RegisterPage = () => {
   const [role, setRole] = useState("USER");
   const [name, setName] = useState("");
@@ -10,7 +11,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [cpassword, setCPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const Navigate = useNavigate();
   const handleRegister = async (e) => {
     e.preventDefault();
 
@@ -49,6 +50,7 @@ const RegisterPage = () => {
       setPassword("");
       setCPassword("");
       setRole("USER");
+      Navigate('/login');
     } catch (error) {
       toast.error(error.message || "Something went wrong.");
     } finally {
