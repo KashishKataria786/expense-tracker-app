@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable"; // ✅ correct import
+import autoTable from "jspdf-autotable"; 
 
 const DownloadPDFReport = ({ data = [] }) => {
   const handleDownload = () => {

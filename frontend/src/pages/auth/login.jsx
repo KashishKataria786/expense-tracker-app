@@ -127,7 +127,7 @@ const Login = () => {
             Forgot Email?
           </a>{" "}
           |{" "}
-          <a href="#" className="hover:text-red-600 font-medium">
+          <a href="/register" className="hover:text-red-600 font-medium">
             Create Account
           </a>
         </div>
