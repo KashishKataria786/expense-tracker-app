@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import {
   FaUtensils,
   FaPlusCircle,
@@ -7,24 +8,25 @@ import {
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { IoLogOutSharp } from "react-icons/io5";
 import { LogOut, PersonStandingIcon } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation,useNavigate} from "react-router-dom";
 
-// Sidebar Link Component
+
 const SidebarLink = ({ icon, label, expand, path }) => {
-  const pathname = useParams();
-  const router = useNavigate();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const isActive = pathname === path;
 
   return (
     <div
-      onClick={() => router(`${path}`)}
-      className={`${
-        path === pathname ? "bg-gray-800 text-white" : ""
-      } flex items-center ${
-        expand ? "justify-start" : "justify-center"
-      } gap-3 border border-gray-100 hover:text-white hover:bg-red-500 px-3 py-4  cursor-pointer transition px-6 `}
+      onClick={() => navigate(path)}
+      className={`flex items-center cursor-pointer transition 
+        ${expand ? "justify-start px-4 py-6" : "justify-center p-2"}
+        ${isActive ? "bg-red-500 text-white" : "text-gray-700 hover:bg-red-500 hover:text-white"}
+      `}
     >
-      <span className="text-md">{icon}</span>
-      {expand && <span className="text-sm font-medium">{label}</span>}
+      <span className="text-lg">{icon}</span>
+      {expand && <span className="ml-3 text-sm font-medium">{label}</span>}
     </div>
   );
 };
@@ -51,11 +53,12 @@ const Sidebar = () => {
          {/* Logo Section */}
         <div className="flex gap-4 items-center mb-10">
         {/* <img className="h-[55px] w-[55px] rounded-full" src="/logo.webp" alt="Logo" /> */}
+          <RiMoneyDollarCircleFill className="text-red-600 text-5xl" />
         {expand && <span className="text-xl font-semibold">Expense Tracker</span>}
       </div>
 
       {/* Navigation */}
-      <nav className="space-y-4">
+      <nav className="">
         <SidebarLink
           expand={expand}
           label="Dashboard"
