@@ -5,7 +5,7 @@ import colors from 'colors'
 import AuthRouter from "./routes/auth.routes.js";
 import morgan from "morgan";
 import transactionRouter from "./routes/transaction.route.js";
-
+import limiter from "./middlewares/rateLimiter.js";
 
 dotenv.config();
 const app = express();
@@ -16,7 +16,7 @@ app.use(morgan());
 
 app.use("/api/auth", AuthRouter);
 app.use("/api/transaction", transactionRouter);
-
+app.use(limiter)
 app.get("/", (req, res) => {
   res.send("Express + Prisma + Neon PostgreSQL running!".bgBlue);
 });
