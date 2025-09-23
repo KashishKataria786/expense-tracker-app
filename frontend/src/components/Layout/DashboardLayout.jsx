@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import {
   FaUtensils,
@@ -7,8 +7,9 @@ import {
 } from "react-icons/fa";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { IoLogOutSharp } from "react-icons/io5";
-import { LogOut, PersonStandingIcon } from "lucide-react";
+import { LogOut, LogOutIcon, PersonStandingIcon } from "lucide-react";
 import { useLocation,useNavigate} from "react-router-dom";
+import {AuthContext} from '../../context/AuthContext.jsx'
 
 
 const SidebarLink = ({ icon, label, expand, path }) => {
@@ -36,9 +37,10 @@ const SidebarLink = ({ icon, label, expand, path }) => {
 const Sidebar = () => {
   const [expand, setExpand] = useState(true);
   const router = useNavigate();
-
+ const { user } = useContext(AuthContext);
+ console.log(user);
   const handleLogout = () => {
-    localStorage.removeItem("Token");
+    localStorage.removeItem("token");
     router("/login");
   };
 
@@ -52,7 +54,6 @@ const Sidebar = () => {
       <div>
          {/* Logo Section */}
         <div className="flex gap-4 items-center mb-10">
-        {/* <img className="h-[55px] w-[55px] rounded-full" src="/logo.webp" alt="Logo" /> */}
           <RiMoneyDollarCircleFill className="text-red-600 text-5xl" />
         {expand && <span className="text-xl font-semibold">Expense Tracker</span>}
       </div>
@@ -88,7 +89,8 @@ const Sidebar = () => {
 
       {/* User Section */}
       <div className="mt-10">
-        {/* <HeaderAuth onLogout={handleLogout} /> */}
+        
+        <button onClick={handleLogout} className="bg-red-500 border border-red-500 hover:bg-white hover:text-red-500 text-white w-full flex gap-2 items-center  p-3"><LogOutIcon/><span>Log Out </span></button>
       </div>
     </aside>
   );
