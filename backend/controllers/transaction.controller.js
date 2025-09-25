@@ -65,7 +65,6 @@ export const getAllTransactions = async (req, res) => {
       filters.AND.push({
         OR: [
           { title: { contains: search, mode: "insensitive" } },
-          { description: { contains: search, mode: "insensitive" } }, 
         ]
       });
     }
