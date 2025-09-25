@@ -44,21 +44,32 @@ export const addTransaction = async (req, res) => {
 };
 export const getAllTransactions = async (req, res) => {
   const user_Id = req.user.id;
-  const {search , type, category}=req.query;
+  const { search, type, category } = req.query;
+
   try {
-    const filters ={userId:user_Id}
+
+    const filters = {
+      userId: user_Id,
+      AND: [] 
+    };
+
     if (type) {
-      filters.type = type;
-    }else if (category){
-      filters.type=type
+      filters.AND.push({ type });
     }
 
-    if(search){
-      filters.OR = [
-        {title:{contains:search , mode: "insensitive"},}
-
-      ]
+    if (category) {
+      filters.AND.push({ category });
     }
+
+    if (search) {
+      filters.AND.push({
+        OR: [
+          { title: { contains: search, mode: "insensitive" } },
+          { description: { contains: search, mode: "insensitive" } }, 
+        ]
+      });
+    }
+
     const transactions = await prisma.transaction.findMany({
       where: filters,
       orderBy: { createdAt: "desc" },
@@ -152,3 +163,5 @@ export const editTransaction = async (req, res) => {
     return res.status(500).json({ error: "Something went wrong" });
   }
 };
+
+
