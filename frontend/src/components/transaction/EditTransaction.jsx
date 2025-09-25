@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { validTypes, validCategories } from "../../config/utils.js";
 import { toast } from "react-toastify";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 const EditTransaction = ({ id, reload }) => {
   const token = localStorage.getItem("token") || null;
@@ -10,7 +11,7 @@ const EditTransaction = ({ id, reload }) => {
   const [type, setType] = useState(validTypes[0]);
   const [category, setCategory] = useState(validCategories[0]);
   const [loading, setLoading] = useState(false);
-
+  const {user}=useAuth();
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title || !amount) {
@@ -154,12 +155,16 @@ const EditTransaction = ({ id, reload }) => {
 
        
         <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-red-600 text-white py-2 rounded-sm font-medium hover:bg-red-700 transition"
-        >
-          {loading ? "Updating..." : "Update Transaction"}
-        </button>
+      disabled={user?.role === "READ_ONLY"}
+      className={`w-full text-white py-2 rounded-sm font-medium transition 
+    ${
+      user?.role === "READ_ONLY"
+        ? "bg-gray-400 cursor-not-allowed"
+        : "bg-red-600 hover:bg-red-700"
+    }`}
+    >
+      {loading ? "Updating..." : "Update Transaction"}
+    </button>
       </form>
     </div>
   );

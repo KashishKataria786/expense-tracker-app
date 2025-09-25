@@ -22,7 +22,7 @@ export const readOnlyPolicy= (req,res,next)=>{
   const role = req.user.role;
   if(!role)return res.status(500).json({error:"Server Error"});
   try {
-    if(role==='READ ONLY'){
+    if(role==='READ_ONLY'){
       return res.status(401).json({error:"Not Authorized"});
     }else{
       req.user=req.user

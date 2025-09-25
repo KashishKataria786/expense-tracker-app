@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 
 const AddTransaction = ({ reload }) => {
   const token = localStorage.getItem('token') || null;
+  const {user}= useAuth();
+  console.log("user",user);
   const [form, setForm] = useState({
     title: "",
     amount: "",
@@ -58,7 +60,7 @@ const AddTransaction = ({ reload }) => {
       if (reload)reload(); 
     } catch (error) {
       console.error("Error adding transaction:", error.message);
-      toast.error("Error adding transaction");
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
@@ -140,12 +142,16 @@ const AddTransaction = ({ reload }) => {
 
         {/* Submit Button */}
         <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-red-600 text-white py-2 rounded-sm font-medium hover:bg-red-700 transition"
-        >
-          {loading ? "Adding..." : "Add Transaction"}
-        </button>
+      disabled={user?.role === "READ_ONLY"}
+      className={`w-full text-white py-2 rounded-sm font-medium transition 
+    ${
+      user?.role === "READ_ONLY"
+        ? "bg-gray-400 cursor-not-allowed"
+        : "bg-red-600 hover:bg-red-700"
+    }`}
+    >
+      {loading ? "Adding..." : "Add Transaction"}
+    </button>
       </form>
     </div>
   );
